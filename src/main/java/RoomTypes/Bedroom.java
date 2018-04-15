@@ -29,6 +29,10 @@ public class Bedroom extends Room{
         return type.getCapacity();
     }
 
+    public void setBedRoomCapacity(){
+        setDefaultCapacity(getRoomCapacity());
+    }
+
     public double getNightlyRate(){
         return this.nightlyRate;
     }

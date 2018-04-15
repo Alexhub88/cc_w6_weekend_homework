@@ -46,22 +46,24 @@ public class HotelTest {
         this.guest8 = new Guest("Alice", "2018-07-01", "2018-08-01");
         this.guest9 = new Guest("Zach", "2018-09-01", "2018-10-01");
         this.bedroom1 = new Bedroom(1, Type.SINGLE, 45.2);
+        this.bedroom1.setBedRoomCapacity();
         this.bedroom2 = new Bedroom(2, Type.DOUBLE, 82.4);
+        this.bedroom2.setBedRoomCapacity();
         this.conferenceroom = new ConferenceRoom("Executive Boardroom", 150.75);
+        this.conferenceroom.setConferenceRoomCapacity();
         this.diningroom = new DiningRoom("Main Dining Hall");
+        this.diningroom.setDiningRoomCapacity();
         this.hotel = new Hotel("Overlook");
         this.hotel.addRoom(bedroom1);
         this.hotel.addRoom(bedroom2);
         this.hotel.addRoom(conferenceroom);
         this.hotel.addRoom(diningroom);
         this.hotel.guestCheckIn(0, guest1);
-        this.hotel.guestCheckIn(0, guest2);
-        this.hotel.guestCheckIn(1, guest3);
-        this.hotel.guestCheckIn(1, guest4);
-        this.hotel.guestCheckIn(2, guest5);
-        this.hotel.guestCheckIn(2, guest6);
-        this.hotel.guestCheckIn(3, guest7);
-        this.hotel.guestCheckIn(3, guest8);
+        this.hotel.guestCheckIn(1, guest2);
+        this.hotel.guestCheckIn(2, guest3);
+        this.hotel.guestCheckIn(2, guest4);
+        this.hotel.guestCheckIn(3, guest5);
+        this.hotel.guestCheckIn(3, guest6);
 
     }
 
@@ -91,8 +93,8 @@ public class HotelTest {
     @Test
     public void checkGuestList() {
         listOfGuests = new ArrayList<>();
-        listOfGuests.add(guest5);
-        listOfGuests.add(guest6);
+        listOfGuests.add(guest3);
+        listOfGuests.add(guest4);
         room = hotel.getRoom(2);
         assertEquals(listOfGuests, room.getGuestList());
     }
@@ -102,29 +104,36 @@ public class HotelTest {
         listOfGuests = new ArrayList<>();
         listOfGuests.add(guest3);
         listOfGuests.add(guest4);
-        room = hotel.getRoom(1);
+        room = hotel.getRoom(2);
         assertEquals(listOfGuests, room.getGuestList());
 
-        assertEquals(true, hotel.guestCheckIn(1, guest9));
-        listOfGuests.add(guest9);
+        assertEquals(true, hotel.guestCheckIn(2, guest9));
 
-        room = hotel.getRoom(1);
+        listOfGuests.add(guest9);
+        room = hotel.getRoom(2);
         assertEquals(listOfGuests, room.getGuestList());
 
     }
 
     @Test
-    public void checkGuestCheckIn__fails() {
+    public void checkGuestCheckIn__fails_exceeded_capacity() {
+        listOfGuests = new ArrayList<>();
+        listOfGuests.add(guest1);
+        room = hotel.getRoom(0);
+
+        assertEquals(listOfGuests, room.getGuestList());
+        assertEquals(false, hotel.guestCheckIn(0, guest9));
+    }
+
+    @Test
+    public void checkGuestCheckIn__fails_guest_already_checked_in() {
         listOfGuests = new ArrayList<>();
         listOfGuests.add(guest3);
         listOfGuests.add(guest4);
-        room = hotel.getRoom(1);
-        assertEquals(listOfGuests, room.getGuestList());
+        room = hotel.getRoom(2);
 
-        assertEquals(false, hotel.guestCheckIn(1, guest4));
-
-        room = hotel.getRoom(1);
         assertEquals(listOfGuests, room.getGuestList());
+        assertEquals(false, hotel.guestCheckIn(2, guest4));
 
     }
 
@@ -133,14 +142,14 @@ public class HotelTest {
         listOfGuests = new ArrayList<>();
         listOfGuests.add(guest3);
         listOfGuests.add(guest4);
-        room = hotel.getRoom(1);
+        room = hotel.getRoom(2);
         assertEquals(listOfGuests, room.getGuestList());
 
-        hotel.guestCheckOut(1, guest4);
+        hotel.guestCheckOut(2, guest4);
 
         listOfGuests = new ArrayList<>();
         listOfGuests.add(guest3);
-        room = hotel.getRoom(1);
+        room = hotel.getRoom(2);
         assertEquals(listOfGuests, room.getGuestList());
     }
 
@@ -149,8 +158,8 @@ public class HotelTest {
         listOfGuests = new ArrayList<>();
         listOfGuests2 = new ArrayList<>();
 
-        listOfGuests.add(guest7);
-        listOfGuests.add(guest8);
+        listOfGuests.add(guest5);
+        listOfGuests.add(guest6);
 
         listOfGuests2 = hotel.getGuestsInRoom(3);
         assertEquals(listOfGuests, listOfGuests2);

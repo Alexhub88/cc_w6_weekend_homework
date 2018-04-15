@@ -22,4 +22,7 @@ public class ConferenceRoom extends Room {
         return this.dailyRate;
     }
 
+    public void setConferenceRoomCapacity(){
+        setDefaultCapacity(3);
+    }
 }

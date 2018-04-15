@@ -20,4 +20,10 @@ public class DiningRoomTest {
         assertEquals("Diningroom", diningroom1.getRoomName());
     }
 
+    @Test
+    public void hasDefaultCapacity(){
+        diningroom1.setDiningRoomCapacity();
+        assertEquals(4, diningroom1.getDefaultCapacity());
+    }
+
 }

@@ -12,4 +12,7 @@ public class DiningRoom extends Room {
         return this.name;
     }
 
+    public void setDiningRoomCapacity(){
+        setDefaultCapacity(4);
+    }
 }

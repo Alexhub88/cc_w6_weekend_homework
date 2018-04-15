@@ -42,9 +42,11 @@ public class Hotel {
     public boolean guestCheckIn(int whichRoom, Guest guest) {
         if (!isGuestAlreadyCheckedIn(guest)) {
             room = this.rooms.get(whichRoom);
-            room.addGuest(guest);
+            if (room.addGuest(guest)){
             rooms.set(whichRoom, room);
             return true;
+            } else {
+            return false;}
         } else {
             System.out.println("Guest is already checked in!");
             return false;

@@ -8,11 +8,12 @@ import static org.junit.Assert.assertEquals;
 public class BedroomTest {
 
     private Bedroom bedroom1;
+    private Bedroom bedroom2;
 
     @Before
     public void before(){
         this.bedroom1 = new Bedroom(1, Type.DOUBLE, 56.5);
-
+        this.bedroom2 = new Bedroom(1, Type.SINGLE, 56.5);
     }
 
     @Test
@@ -28,6 +29,14 @@ public class BedroomTest {
     @Test
     public void hasRoomCapacity(){
         assertEquals(2, bedroom1.getRoomCapacity());
+    }
+
+    @Test
+    public void hasDefaultCapacity(){
+        bedroom1.setBedRoomCapacity();
+        bedroom2.setBedRoomCapacity();
+        assertEquals(2, bedroom1.getDefaultCapacity());
+        assertEquals(1, bedroom2.getDefaultCapacity());
     }
 
     @Test

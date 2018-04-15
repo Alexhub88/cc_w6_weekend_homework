@@ -20,6 +20,12 @@ public class ConferenceRoomTest {
         assertEquals("Executive Boardroom", conferenceroom1.getRoomName());
     }
 
+    @Test
+    public void hasDefaultCapacity(){
+        conferenceroom1.setConferenceRoomCapacity();
+        assertEquals(3, conferenceroom1.getDefaultCapacity());
+    }
+
 
     @Test
     public void hasDailyRate(){
